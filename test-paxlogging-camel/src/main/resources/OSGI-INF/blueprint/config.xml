@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:camel="http://camel.apache.org/schema/blueprint">
+    
+    <bean id="paxLogProcessor" class="org.talend.esb.PaxLogProcessor" />
+
+    <camel:camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="paxlogging:mylog" />
+            <process ref="paxLogProcessor"/>
+            <!--convertBodyTo type="java.io.InputStream"/-->
+            <to uri="file://C:/tmp?fileName=out.log&amp;fileExist=Append"/>
+        </route>
+    </camel:camelContext>
+</blueprint>

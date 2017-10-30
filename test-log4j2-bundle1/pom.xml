@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	
+    <groupId>org.talend.esb</groupId>
+	<artifactId>test-log4j2-bundle1</artifactId>
+	<name>Talend :: ESB :: Test :: Log4j2 bundle1</name>
+    <version>1.0.0</version>
+	<packaging>bundle</packaging>
+
+	<dependencies>
+	
+		<dependency>
+			<groupId>org.talend.esb</groupId>
+			<artifactId>test-log4j2-common</artifactId>
+			<version>${project.version}</version>
+            <scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>lib/*.jar</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+                    <include>OSGI-INF/blueprint/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.4.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-ClassPath>.,lib/test-log4j2-common-1.0.0.jar</Bundle-ClassPath>
+                        <!--Private-Package>beans,org.talend.esb.bundle1</Private-Package-->
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -2,6 +2,13 @@
 
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    
-    <bean id="myapple" class="org.talend.Apple" init-method="init" />
+
+    <bean id="myApple" class="org.talend.AppleImpl" init-method="init" />
+
+    <service ref="myApple" interface="org.talend.Apple">
+        <service-properties>
+            <entry key="abc" value="def" />
+        </service-properties>
+    </service>
+
 </blueprint>

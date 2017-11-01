@@ -1,19 +1,9 @@
-package org.talend.esb;
+package org.talend;
 
-public class Apple {
+public interface Apple {
 
-    private String name;
-    
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getName();
 
-    public String getName() {
-        return this.name;
-    }
-
-    public void init() {
-        System.out.println("init Apple ...");
-    }
+    public void smile();
 
 }

@@ -36,6 +36,7 @@ public class CustomAuthSupplier implements HttpAuthSupplier {
             Message message,
             String fullHeader
     ) {
+        System.out.println("Create authorization info from custom AuthSupplier ...");
         String reqestedRealm = new HttpAuthHeader(fullHeader).getRealm();
         if (realm != null && realm.equals(reqestedRealm)) {
             return createUserPass(user, pass);

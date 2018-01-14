@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
+	xmlns:camel="http://camel.apache.org/schema/blueprint" xmlns:camel-cxf="http://camel.apache.org/schema/blueprint/cxf"
+	xsi:schemaLocation="
+        http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+        http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.0.0.xsd
+        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+        http://camel.apache.org/schema/blueprint/cxf http://camel.apache.org/schema/blueprint/cxf/camel-cxf.xsd">
+
+	<bean id="marshallingPreparationProcessor"
+		class="org.talend.esb.eventlogging.sender.rest.MarshallingPreparationProcessor" />
+
+    <!-- bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">  
+        <property name="dropRootElement" value="true"/>  
+        <property name="dropCollectionWrapperElement" value="true"/>  
+        <property name="serializeAsArray" value="true"/>
+    </bean -->  
+    
+    <bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+    
+	<camel-cxf:rsClient id="restClient"
+		address="http://localhost:8040/services/eventlogging/events" serviceClass="org.talend.esb.eventlogging.sender.rest.EventLogging"
+		loggingFeatureEnabled="true">
+		<camel-cxf:providers>
+			<ref component-id="jsonProvider" />
+		</camel-cxf:providers>
+
+		<camel-cxf:headers>
+			<entry key="Content-Encoding" value="UTF-8" />
+			<entry key="Content-Type" value="application/json" />
+		</camel-cxf:headers>
+	</camel-cxf:rsClient>
+
+	<camel:camelContext>
+
+     <camel:redeliveryPolicyProfile id="redPolicy" maximumRedeliveries="0" retryAttemptedLogLevel="WARN"/>
+
+		<camel:route>
+			<camel:from uri="timer://foo?repeatCount=1" />
+
+			<camel:process ref="marshallingPreparationProcessor" />
+
+			<camel:to uri="cxfrs://bean://restClient" />
+		</camel:route>
+
+	</camel:camelContext>
+
+</blueprint>

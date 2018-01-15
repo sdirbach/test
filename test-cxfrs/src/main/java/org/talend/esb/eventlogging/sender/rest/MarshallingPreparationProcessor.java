@@ -25,16 +25,18 @@ public class MarshallingPreparationProcessor implements Processor {
         
 		EventList answer = new EventList();
 		for (int i = 0; i < events.size(); i++) {
-			Event event = new Event();
+			answer.add(new Event(events.get(i)));
+			/* Event event = new Event();
 			event.setEventUUID(events.get(i).getEventUUID());
 			event.setCategory(events.get(i).getCategory());
-		    answer.add(event);
+		    answer.add(event);*/
 		}
 		
 		MessageContentsList msgList = new MessageContentsList();
 		msgList.add(answer);
 
 		DefaultMessage msg = new DefaultMessage();
+		msg.getHeaders().put("Content-Type", "application/json");
 		msg.setBody(msgList);
 		exchange.setIn(msg);
 	}

@@ -25,7 +25,10 @@ public class MarshallingPreparationProcessor implements Processor {
         
 		EventList answer = new EventList();
 		for (int i = 0; i < events.size(); i++) {
-		    answer.add(new Event(events.get(i)));
+			Event event = new Event();
+			event.setEventUUID(events.get(i).getEventUUID());
+			event.setCategory(events.get(i).getCategory());
+		    answer.add(event);
 		}
 		
 		MessageContentsList msgList = new MessageContentsList();

@@ -11,13 +11,18 @@
 	<bean id="marshallingPreparationProcessor"
 		class="org.talend.esb.eventlogging.sender.rest.MarshallingPreparationProcessor" />
 
-    <!-- bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">  
+    <!--bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.json.JSONProvider">  
         <property name="dropRootElement" value="true"/>  
         <property name="dropCollectionWrapperElement" value="true"/>  
         <property name="serializeAsArray" value="true"/>
-    </bean -->  
+    </bean-->  
     
-    <bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+    <!-- bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" / -->
+	
+	<bean id="jsonProviderFactory"
+		class="org.talend.esb.eventlogging.sender.rest.JsonProviderFactory" />
+	<bean id="jsonProvider" factory-ref="jsonProviderFactory"
+        factory-method="getJsonProvider" />
     
 	<camel-cxf:rsClient id="restClient"
 		address="http://localhost:8040/services/eventlogging/events" serviceClass="org.talend.esb.eventlogging.sender.rest.EventLogging"

@@ -16,22 +16,22 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.talend.esb.eventlogging.sender.rest.LogEvent;
 import org.talend.esb.eventlogging.sender.rest.LogEventImpl;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-        "eventUUID", "correlationId",
-        "eventType", "category", "agentId", "severity",
-        "logMessage", "logSource", "signedLogMessage", "logTimestamp",
-        "agentTimestamp", "serverTimestamp",
-        "audit", "auditSequenceNo",
-        "subject",
-        "customInfo"
-})
-@XmlRootElement(name = "event")
+//@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "", propOrder = {
+//        "eventUUID", "correlationId",
+//        "eventType", "category", "agentId", "severity",
+//        "logMessage", "logSource", "signedLogMessage", "logTimestamp",
+//        "agentTimestamp", "serverTimestamp",
+//        "audit", "auditSequenceNo",
+//        "subject",
+//        "customInfo"
+//})
+//@XmlRootElement(name = "event")
 public class Event implements Serializable {
 
     private static final long serialVersionUID = 5746132029914660077L;
 
-    @XmlTransient
+    //@XmlTransient
 //    @XmlElement(name = "id")
     private Long id;
 

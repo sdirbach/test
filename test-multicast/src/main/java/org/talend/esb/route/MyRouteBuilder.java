@@ -63,6 +63,7 @@ public class MyRouteBuilder extends RouteBuilder {
 				.parallelProcessing()
                 .shareUnitOfWork()
 				.stopOnException()
+				.stopOnAggregateException()
 				.to("direct:direct1", "direct:direct2");
 
     }
